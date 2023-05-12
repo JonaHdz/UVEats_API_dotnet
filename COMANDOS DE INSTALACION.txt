@@ -1,0 +1,5 @@
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Pomelo.EntityFrameworkCore.MySql
+dotnet tool install --global dotnet-ef
+dotnet ef dbcontext scaffold "Server=127.0.0.1;database=uveats;user=root;pwd=minecraftPE1976;" Pomelo.EntityFrameworkCore.MySql -o ./Models -f
