@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace API_PROYECTO.Models;
+namespace UVEATS_API_DOTNET.Models;
 
 public partial class UveatsContext : DbContext
 {
