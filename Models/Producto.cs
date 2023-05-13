@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace API_PROYECTO.Models;
+namespace UVEATS_API_DOTNET.Models;
 
 public partial class Producto
 {
