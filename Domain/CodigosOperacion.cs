@@ -10,4 +10,7 @@ public class CodigosOperacion
     public static int ERROR_CONEXION = 502;
     public static int ENTIDAD_NO_PROCESABLE = 422;
     public static int SOLICITUD_INCORRECTA = 400; 
+
+//puede ser usada cuando no se puede eliminar un recurso
+    public static int CONFLICTO = 409;
 }

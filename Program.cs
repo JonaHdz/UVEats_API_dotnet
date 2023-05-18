@@ -19,6 +19,8 @@ builder.Services.AddDbContext<UveatsContext>(options =>
 //AGREGAR EN ESTA LINEA LOS DEMAS PROVIDER NECESARIOS                
 builder.Services.AddScoped<LoginProvider>();
 builder.Services.AddScoped<CategoriaProvider>();
+builder.Services.AddScoped<UsuarioProvider>();
+builder.Services.AddScoped<EmpleadoProvider>();
 
 var app = builder.Build();
 
