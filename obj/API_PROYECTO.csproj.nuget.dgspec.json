@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jon10\\desktop\\API_PROYECTO\\UVEats_API_dotnet\\API_PROYECTO.csproj": {}
+    "C:\\Users\\jon10\\Desktop\\API_PROYECTO\\UVEats_API_dotnet\\API_PROYECTO.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jon10\\desktop\\API_PROYECTO\\UVEats_API_dotnet\\API_PROYECTO.csproj": {
+    "C:\\Users\\jon10\\Desktop\\API_PROYECTO\\UVEats_API_dotnet\\API_PROYECTO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jon10\\desktop\\API_PROYECTO\\UVEats_API_dotnet\\API_PROYECTO.csproj",
+        "projectUniqueName": "C:\\Users\\jon10\\Desktop\\API_PROYECTO\\UVEats_API_dotnet\\API_PROYECTO.csproj",
         "projectName": "API_PROYECTO",
-        "projectPath": "C:\\Users\\jon10\\desktop\\API_PROYECTO\\UVEats_API_dotnet\\API_PROYECTO.csproj",
+        "projectPath": "C:\\Users\\jon10\\Desktop\\API_PROYECTO\\UVEats_API_dotnet\\API_PROYECTO.csproj",
         "packagesPath": "C:\\Users\\jon10\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jon10\\desktop\\API_PROYECTO\\UVEats_API_dotnet\\obj\\",
+        "outputPath": "C:\\Users\\jon10\\Desktop\\API_PROYECTO\\UVEats_API_dotnet\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jon10\\AppData\\Roaming\\NuGet\\NuGet.Config",
