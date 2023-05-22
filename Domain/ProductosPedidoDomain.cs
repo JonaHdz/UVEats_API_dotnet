@@ -14,4 +14,6 @@ public class ProductosPedidoDomain
 
     public string? EstadoProducto { get; set; }
 
+    public string? NombreProdcuto {get; set;}
+
 }

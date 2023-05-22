@@ -12,7 +12,7 @@ public class PedidoDomain
 
     public DateOnly? FechaPedido { get; set; }
 
-    public List<ProductosPedidoDomain> productos = new List<ProductosPedidoDomain>();
+    public List<ProductosPedidoDomain> productosPedido = new List<ProductosPedidoDomain>();
 
 
 }
