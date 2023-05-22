@@ -32,7 +32,7 @@ public class PedidoProvider
             int cambioPedido = _connectionModel.SaveChanges();
 
             List<Productospedido> productosList = new List<Productospedido>();
-            foreach (var util in pedido.productos)
+            foreach (var util in pedido.productosPedido)
             {
                 Productospedido productoPedido = new Productospedido();
                 productoPedido.IdPedido = pedidoTemp.IdPedido;
@@ -62,9 +62,114 @@ public class PedidoProvider
 
     }
 
-    public void RecuperarHistorialPedidos(int idUsuario)
+    public (int, List<PedidoDomain>) RecuperarPedidosCliente(int idUsuario)
     {
+        List<PedidoDomain> pedidosActivos = new List<PedidoDomain>();
+        int resultado = 0;
+        try
+        {
+            var pedidos = _connectionModel.Pedidos.Where(a => a.IdUsuario == idUsuario && a.EstadoPedido == EstadosPedido.PEDIDO_ACTIVO).ToList();
 
+            foreach (var util in pedidos)
+            {
+                PedidoDomain pedidoTemp = new PedidoDomain();
+                pedidoTemp.IdPedido = util.IdPedido;
+                pedidoTemp.Total = util.Total;
+                pedidoTemp.EstadoPedido = util.EstadoPedido;
+                pedidoTemp.IdUsuario = util.IdUsuario;
+                pedidoTemp.FechaPedido = util.FechaPedido;
+                pedidosActivos.Add(pedidoTemp);
+            }
+            var productosPedido = (from productopedidoQ in _connectionModel.Productospedidos
+                                   join productoQ in _connectionModel.Productos
+                                   on productopedidoQ.IdProducto equals productoQ.IdProducto
+                                   select new
+                                   {
+                                       Producto = productoQ,
+                                       Productospedido = productopedidoQ
+                                   }).ToList();
+            for (int i = 0; i < pedidosActivos.Count(); i++)
+            {
+                foreach (var util in productosPedido)
+                {
+                    if (util.Productospedido.IdPedido == pedidosActivos[i].IdPedido)
+                    {
+                        ProductosPedidoDomain  productoPedidoTemp = new ProductosPedidoDomain();
+                        productoPedidoTemp.IdProductoPedido = util.Productospedido.IdProductoPedido;
+                        productoPedidoTemp.IdPedido = util.Productospedido.IdPedido;
+                        productoPedidoTemp.Cantidad = util.Productospedido.Cantidad;
+                        productoPedidoTemp.Subtotal = util.Productospedido.Subtotal;
+                        productoPedidoTemp.EstadoProducto = util.Productospedido.EstadoProducto;
+                        productoPedidoTemp.NombreProdcuto = util.Producto.Nombre;
+                        pedidosActivos[i].productosPedido.Add(productoPedidoTemp);
+                    }
+                }
+            }
+
+            resultado = CodigosOperacion.EXITO;
+
+        }
+        catch (DbUpdateException)
+        {
+            resultado = CodigosOperacion.ENTIDAD_NO_PROCESABLE;
+        }
+
+        return (resultado, pedidosActivos);
+    }
+
+        public (int, List<PedidoDomain>) RecuperarPedidosEmpleado()
+    {
+        List<PedidoDomain> pedidosActivos = new List<PedidoDomain>();
+        int resultado = 0;
+        try
+        {
+            var pedidos = _connectionModel.Pedidos.Where(a => a.EstadoPedido == EstadosPedido.PEDIDO_ACTIVO).ToList();
+
+            foreach (var util in pedidos)
+            {
+                PedidoDomain pedidoTemp = new PedidoDomain();
+                pedidoTemp.IdPedido = util.IdPedido;
+                pedidoTemp.Total = util.Total;
+                pedidoTemp.EstadoPedido = util.EstadoPedido;
+                pedidoTemp.IdUsuario = util.IdUsuario;
+                pedidoTemp.FechaPedido = util.FechaPedido;
+                pedidosActivos.Add(pedidoTemp);
+            }
+            var productosPedido = (from productopedidoQ in _connectionModel.Productospedidos
+                                   join productoQ in _connectionModel.Productos
+                                   on productopedidoQ.IdProducto equals productoQ.IdProducto
+                                   select new
+                                   {
+                                       Producto = productoQ,
+                                       Productospedido = productopedidoQ
+                                   }).ToList();
+            for (int i = 0; i < pedidosActivos.Count(); i++)
+            {
+                foreach (var util in productosPedido)
+                {
+                    if (util.Productospedido.IdPedido == pedidosActivos[i].IdPedido)
+                    {
+                        ProductosPedidoDomain  productoPedidoTemp = new ProductosPedidoDomain();
+                        productoPedidoTemp.IdProductoPedido = util.Productospedido.IdProductoPedido;
+                        productoPedidoTemp.IdPedido = util.Productospedido.IdPedido;
+                        productoPedidoTemp.Cantidad = util.Productospedido.Cantidad;
+                        productoPedidoTemp.Subtotal = util.Productospedido.Subtotal;
+                        productoPedidoTemp.EstadoProducto = util.Productospedido.EstadoProducto;
+                        productoPedidoTemp.NombreProdcuto = util.Producto.Nombre;
+                        pedidosActivos[i].productosPedido.Add(productoPedidoTemp);
+                    }
+                }
+            }
+
+            resultado = CodigosOperacion.EXITO;
+
+        }
+        catch (DbUpdateException)
+        {
+            resultado = CodigosOperacion.ENTIDAD_NO_PROCESABLE;
+        }
+
+        return (resultado, pedidosActivos);
     }
 
 

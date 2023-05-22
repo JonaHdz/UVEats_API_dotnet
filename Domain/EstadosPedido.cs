@@ -5,4 +5,6 @@ public class EstadosPedido
     public static string PEDIDO_ACTIVO = "Activo";
 
     public static string PEDIDO_CANCELADO = "Cancelado";
+
+    public static string PEDIDO_ENTREGADO = "Entregado";
 }
