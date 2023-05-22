@@ -17,7 +17,7 @@ public class EmpleadoProvider
         _connectionModel = connectionModel;
     }
 
-    public (int, Usuario) ReistrarEmpleado(UsuarioDomain nuevoUsuario)
+    public (int, Usuario) ReistrarEmpleado(UsuarioDomain nuevoUsuario) //CU12 AGREGAR EMPLEADO
     {
         Usuario usuario = new Usuario();
         usuario.Firstname = nuevoUsuario.Firstname;
@@ -45,11 +45,27 @@ public class EmpleadoProvider
         return (resultado, usuario);
     }
 
-
-    public (int, Usuario) ModificarEmpleado(UsuarioDomain usuarioTemp)
+    public int EliminarEmpleado(int idEmpleado) //CU14 ELIMINAR EMPLEADO
     {
         int resultado = 0;
-        Usuario empleadoSeleccionado = new Usuario();
+        try
+        {
+            Usuario? empleado = _connectionModel.Usuarios.Where(a => a.IdUsuario == idEmpleado).FirstOrDefault();
+            _connectionModel.Usuarios.Remove(empleado);
+            _connectionModel.SaveChanges();
+            resultado = CodigosOperacion.EXITO;
+        }
+        catch (DbUpdateException)
+        {
+            resultado = CodigosOperacion.ENTIDAD_NO_PROCESABLE;
+        }
+        return resultado;
+    }
+
+    public (int, Usuario) ModificarEmpleado(UsuarioDomain usuarioTemp) //CU13 MODIFICAR EMPLEADO
+    {
+        int resultado = 0;
+        Usuario? empleadoSeleccionado = new Usuario();
         try
         {
             empleadoSeleccionado = _connectionModel.Usuarios.FirstOrDefault(a => a.IdUsuario == usuarioTemp.IdUsuario);
@@ -61,8 +77,8 @@ public class EmpleadoProvider
                 empleadoSeleccionado.Correo = usuarioTemp.Correo;
                 empleadoSeleccionado.Foto = usuarioTemp.Foto;
                 empleadoSeleccionado.Telefono = usuarioTemp.Telefono;
-               int cambios =  _connectionModel.SaveChanges();
-                if(cambios == 1)
+                int cambios = _connectionModel.SaveChanges();
+                if (cambios == 1)
                     resultado = CodigosOperacion.EXITO;
                 else
                     resultado = CodigosOperacion.CONFLICTO;
@@ -74,7 +90,7 @@ public class EmpleadoProvider
         {
             resultado = CodigosOperacion.ENTIDAD_NO_PROCESABLE;
         }
-        return (resultado,empleadoSeleccionado);
+        return (resultado, empleadoSeleccionado);
     }
 
 
