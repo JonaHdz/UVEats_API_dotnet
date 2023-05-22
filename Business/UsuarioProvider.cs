@@ -16,7 +16,7 @@ public class UsuarioProvider
         _connectionModel = connectionModel;
     }
 
-    public (int, Usuario) ReistrarCliente(UsuarioDomain nuevoUsuario)
+    public (int, Usuario) ReistrarCliente(UsuarioDomain nuevoUsuario) //CU06 REGISTRAR CLIENTE
     {
         Usuario usuario = new Usuario();
         usuario.Firstname = nuevoUsuario.Firstname;
@@ -69,7 +69,7 @@ public class UsuarioProvider
         return resultado;
     }
 
-    public (int, Usuario) ModificarUsuario(UsuarioDomain usuarioTemp)
+    public (int, Usuario) ModificarUsuario(UsuarioDomain usuarioTemp) // CU07 MODIFICAR INFORMACION CLIENTE
     {
         int resultado = 0;
         Usuario usuario = new Usuario();
