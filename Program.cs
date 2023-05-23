@@ -21,6 +21,10 @@ builder.Services.AddScoped<LoginProvider>();
 builder.Services.AddScoped<CategoriaProvider>();
 builder.Services.AddScoped<UsuarioProvider>();
 builder.Services.AddScoped<EmpleadoProvider>();
+builder.Services.AddScoped<PedidoProvider>();
+builder.Services.AddScoped<ProductoProvider>();
+builder.Services.AddScoped<ResenaProvider>();
+builder.Services.AddScoped<ConversacionPedidoProvider>();
 
 var app = builder.Build();
 

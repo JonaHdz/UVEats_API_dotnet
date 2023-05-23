@@ -23,6 +23,7 @@ public class ProductoProvider
         try
         {
             var productosList = _connectionModel.Productos.Where(a => a.EstadoProducto.Equals(EstadosProducto.PRODUCTO_DISPONIBLE)).ToList();
+            Console.WriteLine("PRODUCTOS COUNT-----------------------" + productosList.Count());
             foreach (var util in productosList)
             {
                 ProductoDomain productoTemp = new ProductoDomain();
@@ -34,6 +35,7 @@ public class ProductoProvider
 
                 productoTemp.EstadoProducto = util.EstadoProducto;
                 productoTemp.FotoProducto = util.FotoProducto;
+                productos.Add(productoTemp);
             }
 
             var categoriasList = _connectionModel.Categorias.ToList();

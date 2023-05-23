@@ -1,4 +1,4 @@
-namespace UVEATS_API_DOTNET.Business;
+namespace UVEATS_API_DOTNET.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using UVEATS_API_DOTNET.Business;
 using UVEATS_API_DOTNET.Models;
