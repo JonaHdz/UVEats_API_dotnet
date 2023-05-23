@@ -2,7 +2,7 @@ namespace UVEATS_API_DOTNET.Domain;
 
 public class ProductosPedidoDomain
 {
-    public int IdProductoPedido { get; set; }
+    public int? IdProductoPedido { get; set; }
 
     public int? IdPedido { get; set; }
 
@@ -14,6 +14,6 @@ public class ProductosPedidoDomain
 
     public string? EstadoProducto { get; set; }
 
-    public string? NombreProdcuto {get; set;}
+    public string? NombreProducto {get; set;}
 
 }

@@ -24,7 +24,7 @@ public class LoginProvider {
     public (int ,Usuario) IniciarSesion(Domain.LoginDomain credenciales)
     {
         int operacion = 0;
-         Usuario usuario = _connectionModel.Usuarios.Where(a => a.Correo.Equals(credenciales.correo) && a.Contrasena.Equals(credenciales.contrasena)).FirstOrDefault();
+         Usuario ? usuario = _connectionModel.Usuarios.Where(a => a.Correo.Equals(credenciales.correo) && a.Contrasena.Equals(credenciales.contrasena)).FirstOrDefault();
         //Usuario usuario = _connectionModel.Usuarios.FirstOrDefault();
         if(usuario != null)
             operacion = CodigosOperacion.EXITO;

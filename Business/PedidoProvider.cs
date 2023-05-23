@@ -27,12 +27,11 @@ public class PedidoProvider
             pedidoTemp.Total = pedido.Total;
             pedidoTemp.EstadoPedido = EstadosPedido.PEDIDO_ACTIVO;
             pedidoTemp.IdUsuario = pedido.IdUsuario;
-            pedidoTemp.FechaPedido = pedido.FechaPedido;
+            pedidoTemp.FechaPedido = DateOnly.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
             _connectionModel.Pedidos.Add(pedidoTemp);
             int cambioPedido = _connectionModel.SaveChanges();
-
             List<Productospedido> productosList = new List<Productospedido>();
-            foreach (var util in pedido.productosPedido)
+            foreach (var util in pedido.ProductosPedido)
             {
                 Productospedido productoPedido = new Productospedido();
                 productoPedido.IdPedido = pedidoTemp.IdPedido;
@@ -44,20 +43,25 @@ public class PedidoProvider
             }
             _connectionModel.AddRange(productosList);
             int cambioProductos = _connectionModel.SaveChanges();
-
             Conversacionespedido conversacionespedido = new Conversacionespedido();
+            conversacionespedido.IdConversacionesPedido = pedidoTemp.IdPedido;
             conversacionespedido.IdPedido = pedidoTemp.IdPedido;
-            int cambioConversacion = _connectionModel.SaveChanges();
+            _connectionModel.Conversacionespedidos.Add(conversacionespedido);
 
+            int cambioConversacion = _connectionModel.SaveChanges();
             if (cambioConversacion == 1 && cambioPedido == 1 && cambioProductos == 1)
                 resultado = CodigosOperacion.EXITO;
             else
                 resultado = CodigosOperacion.SOLICITUD_INCORRECTA;
+
+
+
         }
         catch (DbUpdateException)
         {
             resultado = CodigosOperacion.ENTIDAD_NO_PROCESABLE;
         }
+
         return resultado;
 
     }
@@ -77,7 +81,9 @@ public class PedidoProvider
                 pedidoTemp.Total = util.Total;
                 pedidoTemp.EstadoPedido = util.EstadoPedido;
                 pedidoTemp.IdUsuario = util.IdUsuario;
-                pedidoTemp.FechaPedido = util.FechaPedido;
+                string ?fecha = util.FechaPedido.ToString();
+                pedidoTemp.FechaPedido = DateTime.Parse(fecha);
+                pedidoTemp.ProductosPedido = new List<ProductosPedidoDomain>();
                 pedidosActivos.Add(pedidoTemp);
             }
             var productosPedido = (from productopedidoQ in _connectionModel.Productospedidos
@@ -94,14 +100,15 @@ public class PedidoProvider
                 {
                     if (util.Productospedido.IdPedido == pedidosActivos[i].IdPedido)
                     {
-                        ProductosPedidoDomain  productoPedidoTemp = new ProductosPedidoDomain();
+                        ProductosPedidoDomain productoPedidoTemp = new ProductosPedidoDomain();
                         productoPedidoTemp.IdProductoPedido = util.Productospedido.IdProductoPedido;
                         productoPedidoTemp.IdPedido = util.Productospedido.IdPedido;
                         productoPedidoTemp.Cantidad = util.Productospedido.Cantidad;
+                        productoPedidoTemp.IdProducto = util.Productospedido.IdProducto;
                         productoPedidoTemp.Subtotal = util.Productospedido.Subtotal;
                         productoPedidoTemp.EstadoProducto = util.Productospedido.EstadoProducto;
-                        productoPedidoTemp.NombreProdcuto = util.Producto.Nombre;
-                        pedidosActivos[i].productosPedido.Add(productoPedidoTemp);
+                        productoPedidoTemp.NombreProducto = util.Producto.Nombre;
+                        pedidosActivos[i].ProductosPedido.Add(productoPedidoTemp);
                     }
                 }
             }
@@ -117,7 +124,7 @@ public class PedidoProvider
         return (resultado, pedidosActivos);
     }
 
-        public (int, List<PedidoDomain>) RecuperarPedidosEmpleado()
+    public (int, List<PedidoDomain>) RecuperarPedidosEmpleado()
     {
         List<PedidoDomain> pedidosActivos = new List<PedidoDomain>();
         int resultado = 0;
@@ -132,7 +139,9 @@ public class PedidoProvider
                 pedidoTemp.Total = util.Total;
                 pedidoTemp.EstadoPedido = util.EstadoPedido;
                 pedidoTemp.IdUsuario = util.IdUsuario;
-                pedidoTemp.FechaPedido = util.FechaPedido;
+                string? fecha = util.FechaPedido.ToString();
+                pedidoTemp.FechaPedido = DateTime.Parse(fecha);
+                pedidoTemp.ProductosPedido = new List<ProductosPedidoDomain>();
                 pedidosActivos.Add(pedidoTemp);
             }
             var productosPedido = (from productopedidoQ in _connectionModel.Productospedidos
@@ -143,20 +152,23 @@ public class PedidoProvider
                                        Producto = productoQ,
                                        Productospedido = productopedidoQ
                                    }).ToList();
+            
             for (int i = 0; i < pedidosActivos.Count(); i++)
             {
                 foreach (var util in productosPedido)
                 {
+
                     if (util.Productospedido.IdPedido == pedidosActivos[i].IdPedido)
                     {
-                        ProductosPedidoDomain  productoPedidoTemp = new ProductosPedidoDomain();
+                        ProductosPedidoDomain productoPedidoTemp = new ProductosPedidoDomain();
                         productoPedidoTemp.IdProductoPedido = util.Productospedido.IdProductoPedido;
                         productoPedidoTemp.IdPedido = util.Productospedido.IdPedido;
                         productoPedidoTemp.Cantidad = util.Productospedido.Cantidad;
+                        productoPedidoTemp.IdProducto = util.Productospedido.IdProducto;
                         productoPedidoTemp.Subtotal = util.Productospedido.Subtotal;
                         productoPedidoTemp.EstadoProducto = util.Productospedido.EstadoProducto;
-                        productoPedidoTemp.NombreProdcuto = util.Producto.Nombre;
-                        pedidosActivos[i].productosPedido.Add(productoPedidoTemp);
+                        productoPedidoTemp.NombreProducto = util.Producto.Nombre;
+                        pedidosActivos[i].ProductosPedido.Add(productoPedidoTemp);
                     }
                 }
             }
