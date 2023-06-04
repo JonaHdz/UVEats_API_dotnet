@@ -33,13 +33,13 @@ public class EmpleadoController : ControllerBase
             return new JsonResult(new
             {
                 codigo = resultado,
-                msg = "Error de conexion"
+                lista =clientesList
             });
         else
             return new JsonResult(new
             {
                 codigo = resultado,
-                msg = "Ocurrio un problema"
+                lista =clientesList
             });
     }
 

@@ -19,7 +19,7 @@ public class UsuarioController : ControllerBase
         _usuario = usuarioProvider;
     }
 
-    [HttpGet(Name = "RecuperarClientes")]
+    [HttpGet("RecuperarClientes")]
     public ActionResult RecuperarCliente()
     {
         (int resultado, List<Usuario> clientesList) = _usuario.RecuperarClientes();
@@ -43,9 +43,9 @@ public class UsuarioController : ControllerBase
             });
     }
 
-   
 
-    [HttpPost(Name = "RegistrarCliente")]
+
+    [HttpPost("RegistrarCliente")]
     public ActionResult RegistrarCliente([FromBody] UsuarioDomain usuarioTemp)
     {
         (int resultado, Usuario cliente) = _usuario.ReistrarCliente(usuarioTemp);
@@ -53,20 +53,33 @@ public class UsuarioController : ControllerBase
             return new JsonResult(new
             {
                 codigo = resultado,
-                Usuario = cliente
             });
         else if (resultado == CodigosOperacion.SOLICITUD_INCORRECTA)
             return new JsonResult(new
             {
                 codigo = resultado,
-                msg = "No se puedo realizar la opearacion"
+              
             });
         else
             return new JsonResult(new
             {
                 codigo = resultado,
-                msg = "Ocurrio un problema"
+                
             });
+    }
+
+    [HttpPost("ValidarCorreo")]
+    public ActionResult ValidarCorreo([FromBody] string correo)
+    {
+        int resultado = _usuario.ValidarCorreo(correo);
+        Console.WriteLine("CODIGO   " + resultado );
+        return new JsonResult(new
+        {
+            
+            codigo = resultado
+        });
+
+
     }
 
 }

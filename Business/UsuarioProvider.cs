@@ -119,7 +119,31 @@ public class UsuarioProvider
         return (resultado, UsuariosList);
     }
 
+    public int ValidarCorreo(string correo)
+    {
+        int resultado = 0;
+        try
+        {
+            var usuario = _connectionModel.Usuarios.Where(a => a.Correo.Equals(correo)).FirstOrDefault();
+            Console.WriteLine("USUARIO:  " + usuario.Correo);
+            if (usuario.Correo.Equals(correo))
+                resultado = CodigosOperacion.EXITO;
+            else
+                resultado = CodigosOperacion.RECURSO_NO_ENCONTRADO;
 
+        }
+        catch (NullReferenceException)
+        {
+            resultado = CodigosOperacion.RECURSO_NO_ENCONTRADO;
+        }
+        catch (Exception)
+        {
+            resultado = CodigosOperacion.ERROR_CONEXION;
+        }
+
+
+        return resultado;
+    }
 
 
 
