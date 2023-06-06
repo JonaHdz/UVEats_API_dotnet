@@ -69,7 +69,7 @@ public class UsuarioProvider
         return resultado;
     }
 
-    public (int, Usuario) ModificarUsuario(UsuarioDomain usuarioTemp) // CU07 MODIFICAR INFORMACION CLIENTE
+    public int ModificarUsuario(UsuarioDomain usuarioTemp) // CU07 MODIFICAR INFORMACION CLIENTE
     {
         int resultado = 0;
         Usuario usuario = new Usuario();
@@ -97,7 +97,7 @@ public class UsuarioProvider
             resultado = CodigosOperacion.ENTIDAD_NO_PROCESABLE;
         }
 
-        return (resultado, usuario);
+        return resultado;
 
     }
 

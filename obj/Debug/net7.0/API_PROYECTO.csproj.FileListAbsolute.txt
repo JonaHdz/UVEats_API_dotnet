@@ -84,3 +84,11 @@ C:\Users\jon10\Desktop\API_PROYECTO\UVEats_API_dotnet\obj\Debug\net7.0\refint\AP
 C:\Users\jon10\Desktop\API_PROYECTO\UVEats_API_dotnet\obj\Debug\net7.0\API_PROYECTO.pdb
 C:\Users\jon10\Desktop\API_PROYECTO\UVEats_API_dotnet\obj\Debug\net7.0\API_PROYECTO.genruntimeconfig.cache
 C:\Users\jon10\Desktop\API_PROYECTO\UVEats_API_dotnet\obj\Debug\net7.0\ref\API_PROYECTO.dll
+C:\Users\jon10\Desktop\API_PROYECTO\UVEats_API_dotnet\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\jon10\Desktop\API_PROYECTO\UVEats_API_dotnet\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\jon10\Desktop\API_PROYECTO\UVEats_API_dotnet\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\jon10\Desktop\API_PROYECTO\UVEats_API_dotnet\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\jon10\Desktop\API_PROYECTO\UVEats_API_dotnet\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\jon10\Desktop\API_PROYECTO\UVEats_API_dotnet\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\jon10\Desktop\API_PROYECTO\UVEats_API_dotnet\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\jon10\Desktop\API_PROYECTO\UVEats_API_dotnet\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll

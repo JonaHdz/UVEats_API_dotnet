@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using UVEATS_API_DOTNET.Business;
 using UVEATS_API_DOTNET.Models;
 using UVEATS_API_DOTNET.Domain;
+using Microsoft.AspNetCore.Authorization;
 
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 
@@ -18,6 +20,7 @@ public class UsuarioController : ControllerBase
         _logger = logger;
         _usuario = usuarioProvider;
     }
+
 
     [HttpGet("RecuperarClientes")]
     public ActionResult RecuperarCliente()
@@ -79,6 +82,14 @@ public class UsuarioController : ControllerBase
             codigo = resultado
         });
 
+
+    }
+
+    [HttpPatch ("ActualizarUsuario")]
+    public ActionResult ActualizarUsuario(UsuarioDomain usuarioTemp)
+    {
+        int resultado = _usuario.ModificarUsuario(usuarioTemp);
+        return new JsonResult(new {codigo = resultado});
 
     }
 
