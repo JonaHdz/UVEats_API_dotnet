@@ -18,13 +18,22 @@ public class CategoriaProvider
     }
 
     //METODOS DEL DAO
-    public (int, List<Categoria>) ObtenerCategorias()
+    public (int, List<CategoriaDomain>) ObtenerCategorias()
     {
-        List<Categoria> categorias = new List<Categoria>();
+        List<CategoriaDomain> categorias = new List<CategoriaDomain>();
         int resultado = 0;
         try
         {
-            categorias = _connectionModel.Categorias.ToList();
+             var categoriasTemp = _connectionModel.Categorias.ToList();
+
+            foreach(var util in categoriasTemp)
+            {
+                CategoriaDomain categoria = new CategoriaDomain();
+                categoria.IdCategoria = util.IdCategoria;
+                categoria.Categoria = util.Categoria1;
+                categorias.Add(categoria);
+            }
+
             resultado = CodigosOperacion.EXITO;
         }
         catch (Exception)

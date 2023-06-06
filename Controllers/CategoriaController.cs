@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using UVEATS_API_DOTNET.Business;
 using UVEATS_API_DOTNET.Models;
 using UVEATS_API_DOTNET.Domain;
+using Microsoft.AspNetCore.Authorization;
 
+//[Authorize]
 [ApiController]
-[Route("[controller]")]
+[Route("[controller]")] 
 
 public class CategoriaController: ControllerBase
 {
@@ -22,9 +24,9 @@ public class CategoriaController: ControllerBase
         [HttpGet (Name ="RecuperarCategorias")]
         public ActionResult RecuperarCategorias()
         {
-            (int resultado, List<Categoria> categoriasRecuperadas) = _categoria.ObtenerCategorias();
+            (int resultado, List<CategoriaDomain> categoriasRecuperadas) = _categoria.ObtenerCategorias();
             if(resultado == CodigosOperacion.ERROR_CONEXION)
-                return new JsonResult(new{codigo = resultado ,msg="Error de conexion"});
+                return new JsonResult(new{codigo = resultado ,categoriasRecuperadas});
             return new JsonResult(new{codigo = resultado, categoriasRecuperadas});
         }
 
