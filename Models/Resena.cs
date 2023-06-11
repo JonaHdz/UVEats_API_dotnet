@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UVEATS_API_DOTNET.Models;
+namespace API_PROYECTO.Models;
 
 public partial class Resena
 {
@@ -12,6 +12,8 @@ public partial class Resena
     public int? IdUsuario { get; set; }
 
     public string? Resena1 { get; set; }
+
+    public DateTime? Fecha { get; set; }
 
     public virtual Producto? IdProductoNavigation { get; set; }
 

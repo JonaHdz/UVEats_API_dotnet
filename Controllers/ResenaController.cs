@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UVEATS_API_DOTNET.Business;
 using UVEATS_API_DOTNET.Domain;
 
 namespace UVEATS_API_DOTNET.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 
@@ -20,8 +22,8 @@ public class ResenaController : ControllerBase
         _resenas = resenaProvider;
     }
 
-    [HttpGet ("RecuperarResenasPorId")]
-    public ActionResult RecuperarResenasPorId(int idProducto)
+    [HttpPost ("RecuperarResenasPorId")]
+    public ActionResult RecuperarResenasPorId([FromBody]int idProducto)
     {
         int resultado = 0;
         List<ResenaDomain> resenas = new List<ResenaDomain>();
@@ -32,8 +34,8 @@ public class ResenaController : ControllerBase
         });
     }
 
-    [HttpPost ("RegistrarReseña")]
-    public ActionResult RegistrarReseña (ResenaDomain nuevaResena)
+    [HttpPost ("RegistrarResena")]
+    public ActionResult RegistrarReseña (ResenaRecepcionDomain nuevaResena)
     {
         int resultado = _resenas.RegistrarReseña(nuevaResena);
         return new JsonResult(new{

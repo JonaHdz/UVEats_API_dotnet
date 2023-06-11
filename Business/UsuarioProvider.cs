@@ -3,6 +3,7 @@ using UVEATS_API_DOTNET.Models;
 using System.Globalization;
 using UVEATS_API_DOTNET.Domain;
 using Microsoft.EntityFrameworkCore;
+using API_PROYECTO.Models;
 
 public class UsuarioProvider
 {
@@ -19,7 +20,7 @@ public class UsuarioProvider
     public (int, Usuario) ReistrarCliente(UsuarioDomain nuevoUsuario) //CU06 REGISTRAR CLIENTE
     {
         Usuario usuario = new Usuario();
-        usuario.Firstname = nuevoUsuario.Firstname;
+        usuario.Nombre = nuevoUsuario.Firstname;
         usuario.Apellido = nuevoUsuario.Apellido;
         usuario.Contrasena = nuevoUsuario.Contrasena;
         usuario.Correo = nuevoUsuario.Correo;
@@ -78,7 +79,7 @@ public class UsuarioProvider
             usuario = _connectionModel.Usuarios.FirstOrDefault(a => a.IdUsuario == usuarioTemp.IdUsuario);
             if (usuario != null && usuario.IdUsuario == usuarioTemp.IdUsuario)
             {
-                usuario.Firstname = usuarioTemp.Firstname;
+                usuario.Nombre = usuarioTemp.Firstname;
                 usuario.Apellido = usuarioTemp.Apellido;
                 usuario.Contrasena = usuarioTemp.Contrasena;
                 // usuario.Correo = usuarioTemp.Correo;
