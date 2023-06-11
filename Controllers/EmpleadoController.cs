@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using UVEATS_API_DOTNET.Business;
 using UVEATS_API_DOTNET.Models;
 using UVEATS_API_DOTNET.Domain;
+using API_PROYECTO.Models;
 
 [ApiController]
 [Route("[controller]")]

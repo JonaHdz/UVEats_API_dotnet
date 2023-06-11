@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UVEATS_API_DOTNET.Models;
+namespace API_PROYECTO.Models;
 
 public partial class Usuario
 {
@@ -11,7 +11,7 @@ public partial class Usuario
 
     public string? Contrasena { get; set; }
 
-    public string? Firstname { get; set; }
+    public string? Nombre { get; set; }
 
     public string? Apellido { get; set; }
 

@@ -2,6 +2,7 @@ namespace UVEATS_API_DOTNET.Business;
 using UVEATS_API_DOTNET.Models;
 using System.Globalization;
 using UVEATS_API_DOTNET.Domain;
+using API_PROYECTO.Models;
 
 public class LoginProvider {
 

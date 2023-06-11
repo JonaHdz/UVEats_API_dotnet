@@ -29,7 +29,6 @@ public class PedidoController : ControllerBase
             return new JsonResult(new
             {
                 codigo = resultado,
-                msg = "no se pudo realizar el registro de pedido"
 
             });
         }
@@ -38,7 +37,6 @@ public class PedidoController : ControllerBase
             return new JsonResult(new
             {
                 codigo = resultado,
-                msg = "no se pudo realizar el registro de pedido"
 
             });
         }

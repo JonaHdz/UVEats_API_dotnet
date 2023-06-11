@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using API_PROYECTO.Models;
 
 namespace UVEATS_API_DOTNET.Models;
 
@@ -158,6 +159,9 @@ public partial class UveatsContext : DbContext
             entity.HasIndex(e => e.IdUsuario, "idUsuario_idx");
 
             entity.Property(e => e.IdResena).HasColumnName("idResena");
+            entity.Property(e => e.Fecha)
+                .HasMaxLength(6)
+                .HasColumnName("fecha");
             entity.Property(e => e.IdProducto).HasColumnName("idProducto");
             entity.Property(e => e.IdUsuario).HasColumnName("idUsuario");
             entity.Property(e => e.Resena1)
@@ -189,10 +193,10 @@ public partial class UveatsContext : DbContext
             entity.Property(e => e.Correo)
                 .HasMaxLength(45)
                 .HasColumnName("correo");
-            entity.Property(e => e.Firstname)
-                .HasMaxLength(45)
-                .HasColumnName("firstname");
             entity.Property(e => e.Foto).HasColumnName("foto");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(45)
+                .HasColumnName("nombre");
             entity.Property(e => e.Telefono)
                 .HasMaxLength(10)
                 .HasColumnName("telefono");

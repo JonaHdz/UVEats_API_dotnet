@@ -3,6 +3,7 @@ using UVEATS_API_DOTNET.Models;
 using System.Globalization;
 using UVEATS_API_DOTNET.Domain;
 using Microsoft.EntityFrameworkCore;
+using API_PROYECTO.Models;
 
 public class PedidoProvider
 {
@@ -23,16 +24,19 @@ public class PedidoProvider
         int resultado = 0;
         try
         {
+            Console.WriteLine("INICIO: " );
             Pedido pedidoTemp = new Pedido();
             pedidoTemp.Total = pedido.Total;
             pedidoTemp.EstadoPedido = EstadosPedido.PEDIDO_ACTIVO;
             pedidoTemp.IdUsuario = pedido.IdUsuario;
-            pedidoTemp.FechaPedido = DateOnly.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
+           // pedidoTemp.FechaPedido = DateOnly.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
+           pedidoTemp.FechaPedido = DateOnly.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
             _connectionModel.Pedidos.Add(pedidoTemp);
             int cambioPedido = _connectionModel.SaveChanges();
             List<Productospedido> productosList = new List<Productospedido>();
             foreach (var util in pedido.ProductosPedido)
             {
+                Console.WriteLine("ID DE PRODUCTO: " + util.Subtotal);
                 Productospedido productoPedido = new Productospedido();
                 productoPedido.IdPedido = pedidoTemp.IdPedido;
                 productoPedido.IdProducto = util.IdProducto;
@@ -41,13 +45,14 @@ public class PedidoProvider
                 productoPedido.EstadoProducto = EstadosPedido.PEDIDO_ACTIVO;
                 productosList.Add(productoPedido);
             }
-            _connectionModel.AddRange(productosList);
+            Console.WriteLine("ELEMENTOS DE LSITA: " + productosList.Count);
+            _connectionModel.Productospedidos.AddRange(productosList);
             int cambioProductos = _connectionModel.SaveChanges();
             Conversacionespedido conversacionespedido = new Conversacionespedido();
             conversacionespedido.IdConversacionesPedido = pedidoTemp.IdPedido;
             conversacionespedido.IdPedido = pedidoTemp.IdPedido;
             _connectionModel.Conversacionespedidos.Add(conversacionespedido);
-
+            Console.WriteLine("cambioPRodcutos "+ cambioProductos);
             int cambioConversacion = _connectionModel.SaveChanges();
             if (cambioConversacion == 1 && cambioPedido == 1 && cambioProductos == 1)
                 resultado = CodigosOperacion.EXITO;

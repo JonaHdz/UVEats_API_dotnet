@@ -3,6 +3,7 @@ using UVEATS_API_DOTNET.Models;
 using System.Globalization;
 using UVEATS_API_DOTNET.Domain;
 using Microsoft.EntityFrameworkCore;
+using API_PROYECTO.Models;
 
 public class ProductoProvider
 {

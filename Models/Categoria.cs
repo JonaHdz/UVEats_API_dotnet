@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UVEATS_API_DOTNET.Models;
+namespace API_PROYECTO.Models;
 
 public partial class Categoria
 {

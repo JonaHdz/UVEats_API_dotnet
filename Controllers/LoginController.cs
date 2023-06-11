@@ -8,6 +8,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using API_PROYECTO.Models;
 
 [ApiController]
 [Route("[controller]")]
@@ -49,7 +50,7 @@ public class LoginController : ControllerBase
     [ApiExplorerSettings(IgnoreApi = true)]
     public string generarToken(Usuario usuario)
     {
-        Console.WriteLine("CORREO en token:   " + usuario.Firstname+"   "  +usuario.Correo);
+        Console.WriteLine("CORREO en token:   " + usuario.Nombre+"   "  +usuario.Correo);
         string token="";
         try
         {

@@ -3,6 +3,7 @@ using UVEATS_API_DOTNET.Models;
 using System.Globalization;
 using UVEATS_API_DOTNET.Domain;
 using Microsoft.EntityFrameworkCore;
+using API_PROYECTO.Models;
 
 public class ResenaProvider
 {
@@ -29,8 +30,11 @@ public class ResenaProvider
                 resenaTemp.Resena1 = util.Resena1;
                 resenaTemp.IdProducto = util.IdProducto;
                 resenaTemp.IdUsuario = util.IdUsuario;
+               resenaTemp.fecha = util.Fecha;
+
                 resenas.Add(resenaTemp);
             }
+            resultado = CodigosOperacion.EXITO;
         }
         catch (DbUpdateException)
         {
@@ -39,13 +43,14 @@ public class ResenaProvider
         return (resultado, resenas);
     }
 
-    public int RegistrarReseña(ResenaDomain resena) //CU11 REALIZAR RESEÑA DE PRODUCTOS
+    public int RegistrarReseña(ResenaRecepcionDomain resena) //CU11 REALIZAR RESEÑA DE PRODUCTOS
     {
         int resultado = 0;
         Resena resenaTemp = new Resena();
         resenaTemp.IdProducto = resena.IdProducto;
         resenaTemp.IdUsuario = resena.IdUsuario;
         resenaTemp.Resena1 = resena.Resena1;
+        resenaTemp.Fecha = DateTime.Now;
 
         try
         {
