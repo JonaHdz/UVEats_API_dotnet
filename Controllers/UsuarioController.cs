@@ -25,7 +25,7 @@ public class UsuarioController : ControllerBase
     [HttpGet("RecuperarClientes")]
     public ActionResult RecuperarCliente()
     {
-        (int resultado, List<Usuario>clientesList) = _usuario.RecuperarClientes();
+        (int resultado, List<Usuario> clientesList) = _usuario.RecuperarClientes();
         if (resultado == CodigosOperacion.EXITO)
             return new JsonResult(new
             {
@@ -48,6 +48,7 @@ public class UsuarioController : ControllerBase
 
 
 
+
     [HttpPost("RegistrarCliente")]
     public ActionResult RegistrarCliente([FromBody] UsuarioDomain usuarioTemp)
     {
@@ -61,35 +62,45 @@ public class UsuarioController : ControllerBase
             return new JsonResult(new
             {
                 codigo = resultado,
-              
+
             });
         else
             return new JsonResult(new
             {
                 codigo = resultado,
-                
+
             });
+    }
+
+    [HttpPost("RecuperarClienteId")]
+    public ActionResult RecuperaClientePorId([FromBody] int idClinte)
+    {
+        (int resultado, UsuarioDomain cliente) = _usuario.RecuperaClintePorId(idClinte);
+        return new JsonResult(new
+        {
+            codigo = resultado,
+            cliente = cliente
+        });
     }
 
     [HttpPost("ValidarCorreo")]
     public ActionResult ValidarCorreo([FromBody] string correo)
     {
         int resultado = _usuario.ValidarCorreo(correo);
-        Console.WriteLine("CODIGO   " + resultado );
         return new JsonResult(new
         {
-            
+
             codigo = resultado
         });
 
 
     }
 
-    [HttpPatch ("ActualizarUsuario")]
+    [HttpPatch("ActualizarUsuario")]
     public ActionResult ActualizarUsuario(UsuarioDomain usuarioTemp)
     {
         int resultado = _usuario.ModificarUsuario(usuarioTemp);
-        return new JsonResult(new {codigo = resultado});
+        return new JsonResult(new { codigo = resultado });
 
     }
 

@@ -90,5 +90,17 @@ public class PedidoController : ControllerBase
             });
         
     }
+    
+    [HttpPut("CambiarEstadoProductoPedido")]
+    public ActionResult CambiarEstadoProductoPedido([FromBody]int id)
+    {
+        
+        Console.WriteLine("-" + id);
+        int resultado = 0;
+        resultado = _Pedido.CancelarProductoPedido(id);
+        return new JsonResult(new{
+            codigo = resultado
+        });
+    }
 
 }

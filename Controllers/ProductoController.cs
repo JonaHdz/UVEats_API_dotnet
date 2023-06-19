@@ -4,7 +4,7 @@ using UVEATS_API_DOTNET.Business;
 using UVEATS_API_DOTNET.Domain;
 
 namespace UVEATS_API_DOTNET.Controllers;
-[Authorize]
+ [Authorize]
 [ApiController]
 [Route("[controller]")]
 
@@ -44,9 +44,33 @@ public class ProductoController : ControllerBase
             });
     }
 
+    [HttpGet("RecuperarProductosEmpleado")]
+    public ActionResult RecuperarProductosEmpleado()
+    {
+
+        int resultado = 0;
+        List<ProductoDomain> productos = new List<ProductoDomain>();
+        (resultado, productos) = _productos.RecuperarProductosEmpleado();
+        if (resultado == CodigosOperacion.ENTIDAD_NO_PROCESABLE)
+            return new JsonResult(new
+            {
+                codigo = resultado,
+                msg = "no se pudo recuperar la informacion de pedidos",
+                productosRecuperados = productos
+            });
+        else
+            return new JsonResult(new
+            {
+                codigo = resultado,
+                msg = "lista recuperada",
+                productosRecuperados = productos
+            });
+    }
+
     [HttpPost ("RegistrarProducto")]
     public ActionResult RegistrarProducto([FromBody] ProductoDomain nuevoProducto)
     {
+        Console.WriteLine("registro-----------------");
         int resultado = _productos.RegistrarProducto(nuevoProducto);
         return new JsonResult(new{
             codigo = resultado
