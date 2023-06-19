@@ -8,7 +8,7 @@ public partial class UsuarioDomain
 
     public string? Contrasena { get; set; }
 
-    public string? Firstname { get; set; }
+    public string? Nombre { get; set; }
 
     public string? Apellido { get; set; }
 

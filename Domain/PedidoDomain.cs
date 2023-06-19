@@ -12,6 +12,7 @@ public class PedidoDomain
 
     public List<ProductosPedidoDomain>  ? ProductosPedido {get; set;}
     public DateTime? FechaPedido { get; set; }
+    public string? NombreUsuario {get; set;}
 
     
 

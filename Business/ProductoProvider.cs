@@ -57,6 +57,46 @@ public class ProductoProvider
         return (resultado, productos);
     }
 
+        public (int, List<ProductoDomain>) RecuperarProductosEmpleado() //CU08 VISUALIZAR MENU
+    {
+        int resultado = 0;
+        List<ProductoDomain> productos = new List<ProductoDomain>();
+        try
+        {
+            var productosList = _connectionModel.Productos.ToList();
+            Console.WriteLine("PRODUCTOS COUNT-----------------------" + productosList.Count());
+            foreach (var util in productosList)
+            {
+                ProductoDomain productoTemp = new ProductoDomain();
+                productoTemp.IdProducto = util.IdProducto;
+                productoTemp.Nombre = util.Nombre;
+                productoTemp.Descripcion = util.Descripcion;
+                productoTemp.Precio = util.Precio;
+                productoTemp.IdCategoria = util.IdCategoria;
+
+                productoTemp.EstadoProducto = util.EstadoProducto;
+                productoTemp.FotoProducto = util.FotoProducto;
+                productos.Add(productoTemp);
+            }
+
+            var categoriasList = _connectionModel.Categorias.ToList();
+            foreach (var util in categoriasList)
+            {
+                for (int i = 0; i < productos.Count(); i++)
+                {
+                    if (productos[i].IdCategoria == util.IdCategoria)
+                        productos[i].Categoria = util.Categoria1;
+                }
+            }
+            resultado = CodigosOperacion.EXITO;
+        }
+        catch (DbUpdateException)
+        {
+            resultado = CodigosOperacion.ENTIDAD_NO_PROCESABLE;
+        }
+        return (resultado, productos);
+    }
+
     public int RegistrarProducto(ProductoDomain producto)
     {
         int resultado = 0;

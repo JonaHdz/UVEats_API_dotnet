@@ -18,6 +18,26 @@ public class PedidoProvider
         _connectionModel = connectionModel;
     }
 
+    public int CancelarProductoPedido(int idProductoPedido)
+    {
+        Console.WriteLine("CANCELACION: " + idProductoPedido);
+        int resultado = 0;
+        try{
+            Productospedido producto = _connectionModel.Productospedidos.Where(a => a.IdProductoPedido == idProductoPedido).FirstOrDefault();
+            producto.EstadoProducto = EstadosPedido.PEDIDO_CANCELADO;
+            int cambio = _connectionModel.SaveChanges();
+            if(cambio ==1)
+            resultado = CodigosOperacion.EXITO;
+            else
+            resultado = CodigosOperacion.ENTIDAD_NO_PROCESABLE;
+            Console.WriteLine("cambio: " + cambio);
+        }catch(Exception)
+        {
+            resultado = CodigosOperacion.ERROR_CONEXION;
+        }
+        return resultado;
+    }
+
     public int RegistrarPedido(PedidoDomain pedido)
     {
         //1) registrar pedido 2)registrar conversacion  3)registrar productos pedido
@@ -51,6 +71,7 @@ public class PedidoProvider
             Conversacionespedido conversacionespedido = new Conversacionespedido();
             conversacionespedido.IdConversacionesPedido = pedidoTemp.IdPedido;
             conversacionespedido.IdPedido = pedidoTemp.IdPedido;
+            conversacionespedido.Conversacion = "";
             _connectionModel.Conversacionespedidos.Add(conversacionespedido);
             Console.WriteLine("cambioPRodcutos "+ cambioProductos);
             int cambioConversacion = _connectionModel.SaveChanges();
@@ -135,19 +156,26 @@ public class PedidoProvider
         int resultado = 0;
         try
         {
-            var pedidos = _connectionModel.Pedidos.Where(a => a.EstadoPedido == EstadosPedido.PEDIDO_ACTIVO).ToList();
+            var pedidos = _connectionModel.Pedidos.Where(a => a.EstadoPedido == "Activo").ToList();
 
             foreach (var util in pedidos)
             {
+                
                 PedidoDomain pedidoTemp = new PedidoDomain();
                 pedidoTemp.IdPedido = util.IdPedido;
                 pedidoTemp.Total = util.Total;
                 pedidoTemp.EstadoPedido = util.EstadoPedido;
                 pedidoTemp.IdUsuario = util.IdUsuario;
+               
                 string? fecha = util.FechaPedido.ToString();
                 pedidoTemp.FechaPedido = DateTime.Parse(fecha);
                 pedidoTemp.ProductosPedido = new List<ProductosPedidoDomain>();
                 pedidosActivos.Add(pedidoTemp);
+            }
+            for(int i =0; i<pedidos.Count;i++)
+            {
+                Usuario usuarioTemp = _connectionModel.Usuarios.Where(a => a.IdUsuario == pedidosActivos[i].IdUsuario).FirstOrDefault();
+                pedidosActivos[i].NombreUsuario = usuarioTemp.Nombre + " " + usuarioTemp.Apellido;
             }
             var productosPedido = (from productopedidoQ in _connectionModel.Productospedidos
                                    join productoQ in _connectionModel.Productos

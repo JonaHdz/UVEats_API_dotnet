@@ -21,7 +21,7 @@ public class EmpleadoProvider
     public (int, Usuario) ReistrarEmpleado(UsuarioDomain nuevoUsuario) //CU12 AGREGAR EMPLEADO
     {
         Usuario usuario = new Usuario();
-        usuario.Nombre = nuevoUsuario.Firstname;
+        usuario.Nombre = nuevoUsuario.Nombre;
         usuario.Apellido = nuevoUsuario.Apellido;
         usuario.Contrasena = nuevoUsuario.Contrasena;
         usuario.Correo = nuevoUsuario.Correo;
@@ -72,7 +72,7 @@ public class EmpleadoProvider
             empleadoSeleccionado = _connectionModel.Usuarios.FirstOrDefault(a => a.IdUsuario == usuarioTemp.IdUsuario);
             if (empleadoSeleccionado != null && empleadoSeleccionado.IdUsuario == usuarioTemp.IdUsuario)
             {
-                empleadoSeleccionado.Nombre = usuarioTemp.Firstname;
+                empleadoSeleccionado.Nombre = usuarioTemp.Nombre;
                 empleadoSeleccionado.Apellido = usuarioTemp.Apellido;
                 empleadoSeleccionado.Contrasena = usuarioTemp.Contrasena;
                 empleadoSeleccionado.Correo = usuarioTemp.Correo;

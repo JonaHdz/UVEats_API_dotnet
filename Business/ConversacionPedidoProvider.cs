@@ -23,20 +23,31 @@ public class ConversacionPedidoProvider
         int resultado = 0;
         try
         {
-            Conversacionespedido? conversacion = _connectionModel.Conversacionespedidos.Where(a => a.IdPedido == conversacionTemp.IdPedido).FirstOrDefault();
-            conversacion.Conversacion += conversacionTemp.Conversacion;
+            Conversacionespedido? conversacion = _connectionModel.Conversacionespedidos.Where(a => a.IdConversacionesPedido == conversacionTemp.IdConversacionesPedido).FirstOrDefault();
+            Console.WriteLine("Conversacionrecuperada: " + conversacion.Conversacion);
+            conversacion.Conversacion = conversacionTemp.Conversacion;
             int cambios = _connectionModel.SaveChanges();
             if (cambios == 1)
                 resultado = CodigosOperacion.EXITO;
             else
                 resultado = CodigosOperacion.SOLICITUD_INCORRECTA;
         }
-        catch (DbUpdateException)
+        catch (Exception e)
         {
+            Console.WriteLine("EX: " + e);
             resultado = CodigosOperacion.ENTIDAD_NO_PROCESABLE;
         }
         return resultado;
     }
 
-    //falta metodo para recuperar conversaciones
+    public ConversacionPedidoDomain RecuperaConvesacionPedido(int idPedido)
+    {
+        Conversacionespedido conversacion = _connectionModel.Conversacionespedidos.Where(a => a.IdPedido == idPedido).FirstOrDefault();
+        ConversacionPedidoDomain conversacionTemp = new ConversacionPedidoDomain();
+        conversacionTemp.IdConversacionesPedido = conversacion.IdConversacionesPedido;
+        conversacionTemp.IdPedido = conversacion.IdPedido;
+        conversacionTemp.Conversacion = conversacion.Conversacion;
+        return conversacionTemp;
+        
+    }
 }

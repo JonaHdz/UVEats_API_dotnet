@@ -20,7 +20,7 @@ public class UsuarioProvider
     public (int, Usuario) ReistrarCliente(UsuarioDomain nuevoUsuario) //CU06 REGISTRAR CLIENTE
     {
         Usuario usuario = new Usuario();
-        usuario.Nombre = nuevoUsuario.Firstname;
+        usuario.Nombre = nuevoUsuario.Nombre;
         usuario.Apellido = nuevoUsuario.Apellido;
         usuario.Contrasena = nuevoUsuario.Contrasena;
         usuario.Correo = nuevoUsuario.Correo;
@@ -79,7 +79,7 @@ public class UsuarioProvider
             usuario = _connectionModel.Usuarios.FirstOrDefault(a => a.IdUsuario == usuarioTemp.IdUsuario);
             if (usuario != null && usuario.IdUsuario == usuarioTemp.IdUsuario)
             {
-                usuario.Nombre = usuarioTemp.Firstname;
+                usuario.Nombre = usuarioTemp.Nombre;
                 usuario.Apellido = usuarioTemp.Apellido;
                 usuario.Contrasena = usuarioTemp.Contrasena;
                 // usuario.Correo = usuarioTemp.Correo;
@@ -144,6 +144,26 @@ public class UsuarioProvider
 
 
         return resultado;
+    }
+
+    public (int,UsuarioDomain) RecuperaClintePorId(int idCLiente)
+    {
+        int resultado = 0;
+        UsuarioDomain usuario = new UsuarioDomain();
+        try
+        {
+            Usuario usuarioTemp = _connectionModel.Usuarios.Where(a => a.IdUsuario == idCLiente).FirstOrDefault();
+            usuario.IdUsuario = usuarioTemp.IdUsuario;
+            usuario.Apellido = usuarioTemp.Apellido;
+            usuario.Nombre = usuarioTemp.Nombre;
+            usuario.Telefono = usuarioTemp.Telefono;
+            usuario.Correo = usuarioTemp.Correo;
+            resultado = CodigosOperacion.EXITO;
+        }catch(Exception)
+        {
+            resultado = CodigosOperacion.ERROR_CONEXION;
+        }
+        return(resultado,usuario);
     }
 
 
