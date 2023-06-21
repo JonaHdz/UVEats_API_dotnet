@@ -24,7 +24,7 @@ public class UsuarioProvider
         usuario.Apellido = nuevoUsuario.Apellido;
         usuario.Contrasena = nuevoUsuario.Contrasena;
         usuario.Correo = nuevoUsuario.Correo;
-        usuario.Foto = nuevoUsuario.Foto;
+       // usuario.Foto = nuevoUsuario.Foto;
         usuario.Telefono = nuevoUsuario.Telefono;
         usuario.Tipo = Roles.ROL_CLIENTE;
         int resultado = 0;
@@ -83,7 +83,7 @@ public class UsuarioProvider
                 usuario.Apellido = usuarioTemp.Apellido;
                 usuario.Contrasena = usuarioTemp.Contrasena;
                 // usuario.Correo = usuarioTemp.Correo;
-                usuario.Foto = usuarioTemp.Foto;
+                //usuario.Foto = usuarioTemp.Foto;
                 usuario.Telefono = usuarioTemp.Telefono;
                 //  usuario.Tipo = usuarioTemp.Tipo;
                 int cambios = _connectionModel.SaveChanges();

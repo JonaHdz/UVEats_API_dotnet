@@ -23,54 +23,37 @@ public class EmpleadoController : ControllerBase
     [HttpGet(Name = "RecuperarEmpleados")]
     public ActionResult RecuperarEmpelados()
     {
-        (int resultado, List<Usuario> clientesList) = _empleado.RecuperarEmpelados();
-        if (resultado == CodigosOperacion.EXITO)
+        (int resultado, List<UsuarioDomain> clientesList) = _empleado.RecuperarEmpelados();
             return new JsonResult(new
             {
                 codigo = resultado,
                 lista = clientesList
-            });
-        else if (resultado == CodigosOperacion.ERROR_CONEXION)
-            return new JsonResult(new
-            {
-                codigo = resultado,
-                lista =clientesList
-            });
-        else
-            return new JsonResult(new
-            {
-                codigo = resultado,
-                lista =clientesList
             });
     }
 
     [HttpPost(Name = "RegistrarEmpleado")]
     public ActionResult RegistrarEmpleado([FromBody] UsuarioDomain usuarioTemp)
     {
-        (int resultado, Usuario cliente) = _empleado.ReistrarEmpleado(usuarioTemp);
-        if (resultado == CodigosOperacion.EXITO)
+        usuarioTemp.FotoBytes = Convert.FromBase64String(usuarioTemp.Foto);
+        Console.WriteLine("RGISTRANDO EMPELADO");
+       (int resultado, Usuario cliente) = _empleado.ReistrarEmpleado(usuarioTemp);
+      
             return new JsonResult(new
             {
                 codigo = resultado,
                 Usuario = cliente
             });
-        else if (resultado == CodigosOperacion.SOLICITUD_INCORRECTA)
-            return new JsonResult(new
-            {
-                codigo = resultado,
-                msg = "No se puedo realizar la opearacion"
-            });
-        else
-            return new JsonResult(new
-            {
-                codigo = resultado,
-                msg = "Ocurrio un problema"
-            });
+            
     }
 
     [HttpPut(Name = "ModificarEmpleado")]
     public ActionResult ModificarEmpleado([FromBody] UsuarioDomain usuarioTemp)
     {
+        if(usuarioTemp.Foto != null)
+        {
+        usuarioTemp.FotoBytes = Convert.FromBase64String(usuarioTemp.Foto);
+            Console.WriteLine("ID MODIFICACION + " + usuarioTemp.IdUsuario);
+        }
         (int resultado, Usuario usuarioModificado) = _empleado.ModificarEmpleado(usuarioTemp);
         if (resultado == CodigosOperacion.EXITO)
             return new JsonResult(new
@@ -96,6 +79,16 @@ public class EmpleadoController : ControllerBase
                 codigo = resultado,
                 msg = "Error de conexion"
             });
+    }
+
+    [HttpPost ("EliminarEmpleado")]
+    public ActionResult EliminarEmpleado( [FromBody]int id)
+    {
+        Console.WriteLine("ID ELIMINACION  " + id);
+        int resultado = _empleado.EliminarEmpleado(id);
+        return new JsonResult(new {
+            codigo  = 200
+        });
     }
 
 

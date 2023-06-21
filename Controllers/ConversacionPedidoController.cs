@@ -23,6 +23,7 @@ public class ConversacionPedidoController : ControllerBase
     [HttpPost("RegistrarConversacion")]
     public ActionResult RegistrarConversacion([FromBody]ConversacionPedidoDomain nuevaConversacion )
     {
+        
         int resultado = 0; 
         resultado = _conversacion.RegistrarConversacion(nuevaConversacion);
         return new JsonResult(new{

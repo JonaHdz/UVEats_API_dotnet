@@ -25,7 +25,7 @@ public class EmpleadoProvider
         usuario.Apellido = nuevoUsuario.Apellido;
         usuario.Contrasena = nuevoUsuario.Contrasena;
         usuario.Correo = nuevoUsuario.Correo;
-        usuario.Foto = nuevoUsuario.Foto;
+        usuario.Foto = nuevoUsuario.FotoBytes;
         usuario.Telefono = nuevoUsuario.Telefono;
         usuario.Tipo = Roles.ROL_EMPLEADO;
         int resultado = 0;
@@ -76,7 +76,7 @@ public class EmpleadoProvider
                 empleadoSeleccionado.Apellido = usuarioTemp.Apellido;
                 empleadoSeleccionado.Contrasena = usuarioTemp.Contrasena;
                 empleadoSeleccionado.Correo = usuarioTemp.Correo;
-                empleadoSeleccionado.Foto = usuarioTemp.Foto;
+               empleadoSeleccionado.Foto = usuarioTemp.FotoBytes;
                 empleadoSeleccionado.Telefono = usuarioTemp.Telefono;
                 int cambios = _connectionModel.SaveChanges();
                 if (cambios == 1)
@@ -95,14 +95,30 @@ public class EmpleadoProvider
     }
 
 
-    public (int, List<Usuario>) RecuperarEmpelados()
+    public (int, List<UsuarioDomain>) RecuperarEmpelados()
     {
 
         int resultado = 0;
         List<Usuario> UsuariosList = new List<Usuario>();
+        List<UsuarioDomain> empleados = new List<UsuarioDomain>();
         try
         {
-            UsuariosList = _connectionModel.Usuarios.Where(a => a.Tipo == Roles.ROL_EMPLEADO).ToList();
+            UsuariosList = _connectionModel.Usuarios.Where(a => a.Tipo.Equals( Roles.ROL_EMPLEADO) || a.Tipo.Equals(Roles.ROL_ADMIN)).ToList();
+            
+            foreach(var util in UsuariosList)
+            {
+                UsuarioDomain nuevoEmpleado = new UsuarioDomain();
+                nuevoEmpleado.Nombre = util.Nombre;
+                nuevoEmpleado.Apellido = util.Apellido;
+                nuevoEmpleado.Contrasena = util.Contrasena;
+                nuevoEmpleado.Tipo = util.Tipo;
+                nuevoEmpleado.Correo = util.Correo;
+                nuevoEmpleado.Telefono = util.Telefono;
+                nuevoEmpleado.IdUsuario = util.IdUsuario;
+                if(util.Foto != null)
+                nuevoEmpleado.Foto = Convert.ToBase64String(util.Foto);
+                empleados.Add(nuevoEmpleado);
+            }
             resultado = CodigosOperacion.EXITO;
 
         }
@@ -110,7 +126,7 @@ public class EmpleadoProvider
         {
             resultado = CodigosOperacion.ERROR_CONEXION;
         }
-        return (resultado, UsuariosList);
+        return (resultado, empleados);
     }
 
 
