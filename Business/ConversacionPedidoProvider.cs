@@ -20,11 +20,12 @@ public class ConversacionPedidoProvider
 
     public int RegistrarConversacion(ConversacionPedidoDomain conversacionTemp)
     {
+          Console.WriteLine("CACENLANDO");
         int resultado = 0;
         try
         {
             Conversacionespedido? conversacion = _connectionModel.Conversacionespedidos.Where(a => a.IdConversacionesPedido == conversacionTemp.IdConversacionesPedido).FirstOrDefault();
-            Console.WriteLine("Conversacionrecuperada: " + conversacion.Conversacion);
+          //  Console.WriteLine("Conversacionrecuperada: " + conversacion.Conversacion);
             conversacion.Conversacion = conversacionTemp.Conversacion;
             int cambios = _connectionModel.SaveChanges();
             if (cambios == 1)
@@ -42,6 +43,7 @@ public class ConversacionPedidoProvider
 
     public ConversacionPedidoDomain RecuperaConvesacionPedido(int idPedido)
     {
+      
         Conversacionespedido conversacion = _connectionModel.Conversacionespedidos.Where(a => a.IdPedido == idPedido).FirstOrDefault();
         ConversacionPedidoDomain conversacionTemp = new ConversacionPedidoDomain();
         conversacionTemp.IdConversacionesPedido = conversacion.IdConversacionesPedido;

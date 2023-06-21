@@ -51,30 +51,17 @@ public class PedidoController : ControllerBase
         }
     }
 
-    [HttpPost("RecuperarPedidosCliente")]
-    public ActionResult RecuperarPedidosCliente([FromBody] int idCliente)
+    [HttpPost("RecuperarPedidosClienteRecientes")]
+    public ActionResult RecuperarPedidosClienteRecientes([FromBody] int idCliente)
     {
         int resultado = 0;
         List<PedidoDomain> pedidos = new List<PedidoDomain>();
-        (resultado, pedidos) = _Pedido.RecuperarPedidosCliente(idCliente);
-        if (resultado == CodigosOperacion.ENTIDAD_NO_PROCESABLE)
-        {
+        (resultado, pedidos) = _Pedido.RecuperarPedidosCliente(idCliente);     
             return new JsonResult(new
             {
                 codigo = resultado,
-                msg = "operacion fallida"
-            });
-        }
-        else
-        {
-            return new JsonResult(new
-            {
-                codigo = resultado,
-                msg = "Pedidos recuperados",
                 pedidosRecuperados = pedidos
-
             });
-        }
     }
 
     [HttpGet("RecuperarPedidosEmpleado")]
@@ -101,6 +88,37 @@ public class PedidoController : ControllerBase
         return new JsonResult(new{
             codigo = resultado
         });
+    }
+
+    [HttpPut("CancelarPedido")]
+    public ActionResult CancelarPedido ([FromBody] int idPedido){
+        int resultado = 0;
+        resultado = _Pedido.CancelarPedido(idPedido);
+        return new JsonResult(new {
+            codigo = resultado
+        });
+    }
+
+        [HttpPut("RecogerPedido")]
+    public ActionResult RecogerPedido ([FromBody] int idPedido){
+        int resultado = 0;
+        resultado = _Pedido.RecogerPedido(idPedido);
+        return new JsonResult(new {
+            codigo = resultado
+        });
+    }
+
+    [HttpPost("recuperarHistorialPedidosCliente")]
+    public ActionResult recuperarHistorialPedidosCliente([FromBody]int idCliente)
+    {
+        int resultado = 0;
+        List<PedidoDomain> pedidos = new List<PedidoDomain>();
+        (resultado, pedidos) = _Pedido.RecuperarHistorialCliente(idCliente);     
+            return new JsonResult(new
+            {
+                codigo = resultado,
+                pedidosRecuperados = pedidos
+            });
     }
 
 }
