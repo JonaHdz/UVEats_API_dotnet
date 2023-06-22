@@ -28,18 +28,10 @@ public class ProductoController : ControllerBase
         int resultado = 0;
         List<ProductoDomain> productos = new List<ProductoDomain>();
         (resultado, productos) = _productos.RecuperarProductos();
-        if (resultado == CodigosOperacion.ENTIDAD_NO_PROCESABLE)
             return new JsonResult(new
             {
                 codigo = resultado,
-                msg = "no se pudo recuperar la informacion de pedidos",
-                productosRecuperados = productos
-            });
-        else
-            return new JsonResult(new
-            {
-                codigo = resultado,
-                msg = "lista recuperada",
+               
                 productosRecuperados = productos
             });
     }
