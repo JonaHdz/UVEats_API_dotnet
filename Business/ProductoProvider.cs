@@ -35,7 +35,8 @@ public class ProductoProvider
                 productoTemp.IdCategoria = util.IdCategoria;
 
                 productoTemp.EstadoProducto = util.EstadoProducto;
-                productoTemp.FotoProducto = util.FotoProducto;
+                if(util.FotoProducto != null)
+                productoTemp.FotoProductoString = Convert.ToBase64String(util.FotoProducto);
                 productos.Add(productoTemp);
             }
 
@@ -64,7 +65,6 @@ public class ProductoProvider
         try
         {
             var productosList = _connectionModel.Productos.ToList();
-            Console.WriteLine("PRODUCTOS COUNT-----------------------" + productosList.Count());
             foreach (var util in productosList)
             {
                 ProductoDomain productoTemp = new ProductoDomain();
@@ -75,7 +75,8 @@ public class ProductoProvider
                 productoTemp.IdCategoria = util.IdCategoria;
 
                 productoTemp.EstadoProducto = util.EstadoProducto;
-                productoTemp.FotoProducto = util.FotoProducto;
+                if(util.FotoProducto != null)
+                    productoTemp.FotoProductoString = Convert.ToBase64String(util.FotoProducto);
                 productos.Add(productoTemp);
             }
 
@@ -106,6 +107,7 @@ public class ProductoProvider
         productoTemp.Precio = producto.Precio;
         productoTemp.IdCategoria = producto.IdCategoria;
         productoTemp.EstadoProducto = producto.EstadoProducto;
+        productoTemp.FotoProducto = producto.FotoProducto;
         productoTemp.FotoProducto = producto.FotoProducto;
         try
         {

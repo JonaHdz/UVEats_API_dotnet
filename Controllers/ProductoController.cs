@@ -70,7 +70,8 @@ public class ProductoController : ControllerBase
     [HttpPost ("RegistrarProducto")]
     public ActionResult RegistrarProducto([FromBody] ProductoDomain nuevoProducto)
     {
-        Console.WriteLine("registro-----------------");
+        if(nuevoProducto.FotoProductoString != null)
+            nuevoProducto.FotoProducto = Convert.FromBase64String(nuevoProducto.FotoProductoString);
         int resultado = _productos.RegistrarProducto(nuevoProducto);
         return new JsonResult(new{
             codigo = resultado
@@ -80,6 +81,8 @@ public class ProductoController : ControllerBase
     [HttpPut ("ModificarProducto")]
     public ActionResult ModificarProducto(ProductoDomain productoModificado)
     {
+        if(productoModificado.FotoProductoString != null)
+        productoModificado.FotoProducto = Convert.FromBase64String(productoModificado.FotoProductoString);
         int resultado = _productos.ModificarProducto(productoModificado);
         return new JsonResult(new{
             codigo = resultado

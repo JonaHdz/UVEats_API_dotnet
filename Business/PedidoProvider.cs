@@ -84,7 +84,7 @@ public class PedidoProvider
             Console.WriteLine("INICIO: " );
             Pedido pedidoTemp = new Pedido();
             pedidoTemp.Total = pedido.Total;
-            pedidoTemp.EstadoPedido = EstadosPedido.PEDIDO_ACTIVO;
+            pedidoTemp.EstadoPedido = "Activo";
             pedidoTemp.IdUsuario = pedido.IdUsuario;
            // pedidoTemp.FechaPedido = DateOnly.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
            pedidoTemp.FechaPedido = DateOnly.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
