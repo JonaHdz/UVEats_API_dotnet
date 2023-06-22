@@ -16,7 +16,7 @@ public partial class UsuarioDomain
 
     public string? Tipo { get; set; }
 
-    public string Foto { get; set; }
+    public string? Foto { get; set; }
 
     public byte[]? FotoBytes { get; set; }
 

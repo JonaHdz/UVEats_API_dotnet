@@ -52,6 +52,7 @@ public class UsuarioController : ControllerBase
     [HttpPost("RegistrarCliente")]
     public ActionResult RegistrarCliente([FromBody] UsuarioDomain usuarioTemp)
     {
+        Console.WriteLine("aAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         (int resultado, Usuario cliente) = _usuario.ReistrarCliente(usuarioTemp);
         if (resultado == CodigosOperacion.EXITO)
             return new JsonResult(new
