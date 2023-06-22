@@ -17,4 +17,6 @@ public class ProductoDomain
     public string? EstadoProducto { get; set; }
 
     public byte[]? FotoProducto { get; set; }
+
+    public string? FotoProductoString {get; set;}
 }
