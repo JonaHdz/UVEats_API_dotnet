@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using UVEATS_API_DOTNET.Business;
 using UVEATS_API_DOTNET.Domain;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UVEATS_API_DOTNET.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 

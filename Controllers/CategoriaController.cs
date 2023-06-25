@@ -5,7 +5,7 @@ using UVEATS_API_DOTNET.Models;
 using UVEATS_API_DOTNET.Domain;
 using Microsoft.AspNetCore.Authorization;
 
-//[Authorize]
+[Authorize]
 [ApiController]
 [Route("[controller]")] 
 
