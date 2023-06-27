@@ -19,7 +19,7 @@ public class LoginController : ControllerBase
     private LoginProvider _login;
     private IConfiguration config;
 
-    //CONSTRUCTOR
+    
     public LoginController(ILogger<LoginController> logger, LoginProvider loginProvider, IConfiguration config)
     {
         _logger = logger;
@@ -50,7 +50,6 @@ public class LoginController : ControllerBase
     [ApiExplorerSettings(IgnoreApi = true)]
     public string generarToken(Usuario usuario)
     {
-        Console.WriteLine("CORREO en token:   " + usuario.Nombre+"   "  +usuario.Correo);
         string token="";
         try
         {
